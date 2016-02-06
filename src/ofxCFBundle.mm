@@ -17,7 +17,9 @@ std::string ofxCFBundle::getBundleIdentifier() {
 }
 
 std::string ofxCFBundle::getValue(std::string keyName) {
+  //FIXME memory leak
   NSString* key = [NSString stringWithUTF8String:keyName.c_str()];
   NSString* value = [[[NSBundle mainBundle] infoDictionary] objectForKey:key];
+  value = value == Nil ? @"" : value;
   return [value UTF8String];
 }
